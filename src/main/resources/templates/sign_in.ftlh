@@ -36,8 +36,6 @@
                                     </button>
                                 </form>
                                 <hr>
-                                <p><a href="/oauth2/authorization/google" class="text-secondary">Войти через Google Account</a></p>
-                                <hr>
                                 <p><a href="/signUp" class="text-secondary">Регистрация?</a></p>
                             </div>
                         </div>

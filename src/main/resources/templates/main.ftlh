@@ -1,5 +1,5 @@
 <#import "layouts/base.ftlh" as base>
-<@base.main title="Главная" scripts=["autoComplete.js"]>
+<@base.main title="Главная" scripts=["autoComplete.js", "flatpickr.js" ,"main.js"] css=["flatpickr.min.css"]>
     <main>
         <div class="container">
             <h3 id="tripsBlock"></h3>
@@ -16,6 +16,15 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Find</button>
                 </div>
+            </form>
+            <form action="/quartz" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                <div class="check-date">
+                    <label for="date-in">Заезд:</label>
+                    <input type="text" class="date-input" id="date-in" name="date">
+                    <i class="far fa-calendar"></i>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </main>
