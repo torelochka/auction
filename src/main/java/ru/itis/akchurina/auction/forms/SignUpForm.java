@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.akchurina.auction.validations.annotations.PasswordsMatch;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@PasswordsMatch
 public class SignUpForm {
 
     @Email

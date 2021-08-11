@@ -35,6 +35,11 @@ public class SignUpController {
     @PostMapping("/signUp")
     public String signUp(@Valid SignUpForm form, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> {
+                if (Objects.requireNonNull(error.getCodes())[0].equals("PasswordsMatch.signUpForm")) {
+                    model.addAttribute("passwordsErrorMessage", error.getDefaultMessage());
+                }
+            });
             model.addAttribute("signUpForm", form);
             return "sign_up";
         }
