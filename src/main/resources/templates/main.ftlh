@@ -24,6 +24,10 @@
                     <input type="text" class="date-input" id="date-in" name="date">
                     <i class="far fa-calendar"></i>
                 </div>
+                <div class="form-group col">
+                    <label for="from">title</label>
+                    <input id="from" class="form-control" name="title"/>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

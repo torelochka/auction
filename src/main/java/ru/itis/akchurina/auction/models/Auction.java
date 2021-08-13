@@ -1,21 +1,30 @@
-package ru.itis.akchurina.auction.dto;
+package ru.itis.akchurina.auction.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.aspectj.lang.annotation.DeclareAnnotation;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuctionDto {
+@Entity
+public class Auction {
 
+    @Id
+    @GeneratedValue
     private Long id;
-    private UserDto user;
+
     private String title;
+
+    @ManyToOne
+    private User owner;
+
     private Date date;
 }

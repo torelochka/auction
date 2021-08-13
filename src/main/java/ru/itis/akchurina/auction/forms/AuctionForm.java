@@ -18,4 +18,6 @@ public class AuctionForm {
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date date;
+
+    private String title;
 }

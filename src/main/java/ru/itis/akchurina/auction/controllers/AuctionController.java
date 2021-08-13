@@ -30,6 +30,7 @@ public class AuctionController {
         AuctionDto auctionDto = AuctionDto.builder()
                 .user(modelMapper.map(user, UserDto.class))
                 .date(auctionForm.getDate())
+                .title(auctionForm.getTitle())
                 .build();
 
         auctionService.createAuction(auctionDto);
