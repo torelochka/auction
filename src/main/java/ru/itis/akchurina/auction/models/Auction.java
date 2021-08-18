@@ -28,5 +28,8 @@ public class Auction {
 
     private Double price;
 
+    @OneToOne
+    private User winner;
+
     private Date date;
 }

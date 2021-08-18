@@ -17,6 +17,7 @@ public class AuctionDto {
     private Long id;
     private Double price;
     private UserDto owner;
+    private UserDto winner;
     private String title;
     private Date date;
 }

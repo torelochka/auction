@@ -19,6 +19,9 @@ public class JobServiceImpl implements JobService {
     @Autowired
     private AuctionService auctionService;
 
+    @Autowired
+    private MailService mailService;
+
     @Override
     public void createJob(Class<? extends Job> jobClass, Date scheduleDate, Long identify) {
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
@@ -28,6 +31,7 @@ public class JobServiceImpl implements JobService {
             JobDataMap jobDataMap = new JobDataMap();
             jobDataMap.put("auctionId", identify);
             jobDataMap.put("auctionService", auctionService);
+            jobDataMap.put("mailService", mailService);
 
             JobDetail job = newJob(jobClass)
                     .withIdentity(identify.toString(), "auctionGroup")

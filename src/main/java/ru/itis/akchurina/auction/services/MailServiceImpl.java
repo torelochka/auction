@@ -2,7 +2,6 @@ package ru.itis.akchurina.auction.services;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.SpringTemplateLoader;
 import ru.itis.akchurina.auction.dto.AuctionDto;
-import ru.itis.akchurina.auction.dto.UserDto;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -48,15 +46,15 @@ public class MailServiceImpl implements MailService {
 
     @SneakyThrows
     @Override
-    public void sendWinnerEmail(String email, UserDto winner, AuctionDto auctionDto) {
+    public void sendWinnerEmail(AuctionDto auctionDto) {
         StringWriter writer = new StringWriter();
 
         HashMap<String, String> attributes = new HashMap<>();
-        attributes.put("winner_id", winner.getId().toString());
+        attributes.put("winner_id", auctionDto.getWinner().getId().toString());
         attributes.put("auction_id", auctionDto.getId().toString());
         confirmMailTemplate.process(attributes, writer);
-        MimeMessagePreparator messagePreparator = getEmail(email, writer.toString(), "Результат аукциона");
-        javaMailSender.send(messagePreparator);
+        MimeMessagePreparator winnerMessage = getEmail(auctionDto.getWinner().getEmail(), writer.toString(), "Результат аукциона");
+        javaMailSender.send(winnerMessage);
     }
 
     private MimeMessagePreparator getEmail(String email, String mailText, String subject) {
