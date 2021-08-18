@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,6 +19,7 @@ public class AuctionDto {
     private Double price;
     private UserDto owner;
     private UserDto winner;
+    private List<AuctionPhotoDto> photosName;
     private String title;
     private Date date;
 }

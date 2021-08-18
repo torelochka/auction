@@ -3,7 +3,7 @@
     <main>
         <div class="container">
             <h3 id="tripsBlock"></h3>
-            <form action="/auction" method="post">
+            <form action="/auction" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <div class="form-group col">
                     <label for="from">Название</label>
@@ -12,6 +12,11 @@
                 <div class="form-group col">
                     <label for="from">Финальная ставка</label>
                     <input id="from"  type="number" class="form-control" name="price" step="any"/>
+                </div>
+                <div class="form-group">
+                    <label>Фото
+                        <input name="photos" type="file" accept="image/*" multiple required>
+                    </label>
                 </div>
                 <div class="check-date">
                     <label for="date-in">Дата окончания:</label>

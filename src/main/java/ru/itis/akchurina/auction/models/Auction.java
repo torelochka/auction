@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.DeclareAnnotation;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -32,4 +34,7 @@ public class Auction {
     private User winner;
 
     private Date date;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<AuctionPhoto> photosName;
 }
