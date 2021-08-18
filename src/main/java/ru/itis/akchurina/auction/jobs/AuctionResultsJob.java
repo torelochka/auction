@@ -26,6 +26,12 @@ public class AuctionResultsJob implements Job {
         MailService mailService = (MailService) mergedJobDataMap.get("mailService");
         Optional<AuctionDto> auction = auctionService.getAuctionById(id);
         System.out.println(auction);
-        auction.ifPresent(auctionDto -> mailService.sendWinnerEmail(auctionDto));
+
+        auction.ifPresent(auctionDto -> {
+            if(auctionDto.getWinner() != null) {
+                mailService.sendWinnerEmail(auctionDto);
+            }
+        });
+
     }
 }
