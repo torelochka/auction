@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -61,5 +62,12 @@ public class AuctionServiceImpl implements AuctionService {
     public Optional<AuctionDto> getAuctionById(Long id) {
         return auctionRepository.findById(id)
                 .map(auction -> modelMapper.map(auction, AuctionDto.class));
+    }
+
+    @Override
+    public List<AuctionDto> getAllActive() {
+        return auctionRepository.findAllActive().stream()
+                .map(auction -> modelMapper.map(auction, AuctionDto.class))
+                .collect(Collectors.toList());
     }
 }
