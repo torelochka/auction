@@ -18,18 +18,11 @@ public class Bet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private User user;
+
     private Double price;
 
     @ManyToOne
     private Auction auction;
 }
-
-/*<button>Click Me!</button>
-        const btn = document.querySelector('button');
-
-function sendData( data ){
-    console.log( 'Sending data' );
-
-    const XHR = new XMLHttpRequest()*}
-    /
- */

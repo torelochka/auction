@@ -20,4 +20,5 @@ public class AuctionPhoto {
     private Long id;
 
     private String photoName;
+
 }

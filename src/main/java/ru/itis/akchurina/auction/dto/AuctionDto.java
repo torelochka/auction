@@ -21,5 +21,6 @@ public class AuctionDto {
     private UserDto winner;
     private List<AuctionPhotoDto> photosName;
     private String title;
+    private String description;
     private Date date;
 }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.aspectj.lang.annotation.DeclareAnnotation;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -37,4 +39,7 @@ public class Auction {
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<AuctionPhoto> photosName;
+
+    @Type(type = "text")
+    private String description;
 }

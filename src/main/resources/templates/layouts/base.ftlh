@@ -14,7 +14,6 @@
     <body>
     <#include "header.ftlh">
     <#nested>
-    <#include "footer.ftlh">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <#list scripts as script>

@@ -5,18 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.akchurina.auction.dto.AuctionDto;
 import ru.itis.akchurina.auction.dto.AuctionPhotoDto;
+import ru.itis.akchurina.auction.dto.BetDto;
 import ru.itis.akchurina.auction.jobs.AuctionResultsJob;
 import ru.itis.akchurina.auction.models.Auction;
 import ru.itis.akchurina.auction.models.AuctionPhoto;
+import ru.itis.akchurina.auction.models.Bet;
 import ru.itis.akchurina.auction.models.User;
 import ru.itis.akchurina.auction.repositories.AuctionPhotoRepository;
 import ru.itis.akchurina.auction.repositories.AuctionRepository;
-import ru.itis.akchurina.auction.utils.FileSystemStorageService;
+import ru.itis.akchurina.auction.repositories.BetRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,5 +68,12 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.findAllActive().stream()
                 .map(auction -> modelMapper.map(auction, AuctionDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public AuctionDto findById(Long id) {
+        return auctionRepository.findById(id)
+                .map(auction -> modelMapper.map(auction, AuctionDto.class))
+                .get();
     }
 }

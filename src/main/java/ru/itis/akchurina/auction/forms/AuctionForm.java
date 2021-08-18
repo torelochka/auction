@@ -24,5 +24,7 @@ public class AuctionForm {
     private String title;
     private Double price;
 
+    private String description;
+
     private List<MultipartFile> photos;
 }

@@ -13,6 +13,10 @@
                     <label for="from">Финальная ставка</label>
                     <input id="from"  type="number" class="form-control" name="price" step="any"/>
                 </div>
+                <div class="form-group col">
+                    <label for="from">Описание</label>
+                    <textarea id="from" class="form-control" name="description"></textarea>
+                </div>
                 <div class="form-group">
                     <label>Фото
                         <input name="photos" type="file" accept="image/*" multiple required>
