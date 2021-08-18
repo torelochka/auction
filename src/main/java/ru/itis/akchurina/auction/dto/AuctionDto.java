@@ -15,7 +15,8 @@ import java.util.Date;
 public class AuctionDto {
 
     private Long id;
-    private UserDto user;
+    private Double price;
+    private UserDto owner;
     private String title;
     private Date date;
 }

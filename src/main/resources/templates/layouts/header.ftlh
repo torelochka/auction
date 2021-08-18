@@ -9,6 +9,7 @@
                     <a class="nav-item nav-link active" href="/signUp">Регистрация</a>
                     <#else>
                         <a class="nav-item nav-link active" href="/profile">Профиль</a>
+                        <a class="nav-item nav-link active" href="/auction">Создать аукцион</a>
                         <a class="nav-item nav-link active" href="/logout">Выйти</a>
                 </#if>
 

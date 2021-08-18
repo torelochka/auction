@@ -26,5 +26,7 @@ public class Auction {
     @ManyToOne
     private User owner;
 
+    private Double price;
+
     private Date date;
 }

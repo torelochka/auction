@@ -20,4 +20,5 @@ public class AuctionForm {
     private Date date;
 
     private String title;
+    private Double price;
 }

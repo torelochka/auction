@@ -25,19 +25,14 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public void createAuction(AuctionDto auctionDto) {
 
-        Auction auction = Auction.builder()
-                .owner(modelMapper.map(auctionDto.getUser(), User.class))
-                .title(auctionDto.getTitle())
-                .date(auctionDto.getDate())
-                .build();
+        Auction auction = modelMapper.map(auctionDto, Auction.class);
+        auction.setOwner(modelMapper.map(auctionDto.getOwner(), User.class));
 
         Long auctionId = auctionRepository.save(auction).getId();
 
         jobService.createJob(AuctionResultsJob.class, auctionDto.getDate(), auctionId);
     }
 
-    // TODO: 13.08.2021 почему то user null auctionService.getById() 
-    
     @Override
     public Optional<AuctionDto> getAuctionById(Long id) {
         return auctionRepository.findById(id)

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.itis.akchurina.auction.dto.AuctionDto;
@@ -22,19 +23,20 @@ public class AuctionController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping("/quartz")
-    @ResponseBody
+    @PostMapping("/auction")
     public String createAuction(AuctionForm auctionForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userDetails.getUser();
 
-        AuctionDto auctionDto = AuctionDto.builder()
-                .user(modelMapper.map(user, UserDto.class))
-                .date(auctionForm.getDate())
-                .title(auctionForm.getTitle())
-                .build();
+        AuctionDto auctionDto = modelMapper.map(auctionForm, AuctionDto.class);
+        auctionDto.setOwner(modelMapper.map(user, UserDto.class));
 
         auctionService.createAuction(auctionDto);
 
-        return "success";
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/auction")
+    public String getAuctionCreatePage() {
+        return "create_auction";
     }
 }
