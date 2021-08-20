@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.akchurina.auction.dto.AuctionDto;
 import ru.itis.akchurina.auction.dto.AuctionPhotoDto;
 import ru.itis.akchurina.auction.dto.BetDto;
+import ru.itis.akchurina.auction.dto.UserDto;
 import ru.itis.akchurina.auction.jobs.AuctionResultsJob;
 import ru.itis.akchurina.auction.models.Auction;
 import ru.itis.akchurina.auction.models.AuctionPhoto;
@@ -76,4 +77,26 @@ public class AuctionServiceImpl implements AuctionService {
                 .map(auction -> modelMapper.map(auction, AuctionDto.class))
                 .get();
     }
+
+    @Override
+    public void updateWinner(AuctionDto auctionDto, List<BetDto> auctionBets) {
+        Auction auction = auctionRepository.findById(auctionDto.getId()).get();
+
+        Double maxPrice = 0D;
+
+        for (BetDto betDto : auctionBets) {
+            if (betDto.getPrice() > maxPrice) {
+                auction.setWinner(modelMapper.map(betDto.getUser(), User.class));
+                maxPrice = betDto.getPrice();
+            }
+        }
+
+        if (maxPrice >= auction.getPrice()) {
+            auction.setActive(false);
+            jobService.triggerJob(auction.getId());
+        }
+
+        auctionRepository.save(auction);
+    }
+
 }

@@ -13,6 +13,8 @@
     </div>
     <h2>Описание</h2>
     <p>${auction.description}</p>
+    <h2>Финальная ставка</h2>
+    <p>${auction.price}</p>
     <h2>ставки</h2>
     <div class="row">
         <ul class="list-group list-group-flush">

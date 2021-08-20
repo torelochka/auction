@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface BetRepository extends JpaRepository<Bet, Long> {
-    List<Bet> findAllByAuction(Auction auction);
+    List<Bet> findAllByAuctionOrderByPriceDesc(Auction auction);
 }

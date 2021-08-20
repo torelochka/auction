@@ -13,4 +13,6 @@ public interface AuctionService {
     List<AuctionDto> getAllActive();
 
     AuctionDto findById(Long id);
+
+    void updateWinner(AuctionDto auction, List<BetDto> auctionBets);
 }

@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface JobService {
     void createJob(Class<? extends Job> jobClass, Date scheduleDate, Long identify);
+
+    void triggerJob(Long id);
 }

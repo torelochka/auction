@@ -28,10 +28,12 @@ public class FileSystemStorageService {
 			}
 			Path path = Paths.get(rootLocation);
 			UUID name = UUID.randomUUID();
-			String filename =  file.getName() + name;
+			String substring = name.toString().substring(0, name.toString().indexOf("-"));
+			String filename =  file.getName() + substring;
 			Path destinationFile = path.resolve(
-					Paths.get(file.getName() + name))
+					Paths.get(file.getName() + substring))
 					.normalize().toAbsolutePath();
+
 			if (!destinationFile.getParent().equals(path.toAbsolutePath())) {
 				throw new IllegalArgumentException(
 						"Cannot store file outside current directory.");

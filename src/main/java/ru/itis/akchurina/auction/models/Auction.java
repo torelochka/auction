@@ -42,4 +42,7 @@ public class Auction {
 
     @Type(type = "text")
     private String description;
+
+    @Builder.Default
+    private Boolean active = true;
 }

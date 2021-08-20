@@ -1,5 +1,6 @@
 package ru.itis.akchurina.auction.services;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -22,6 +23,7 @@ public class JobServiceImpl implements JobService {
     @Autowired
     private MailService mailService;
 
+    @SneakyThrows
     @Override
     public void createJob(Class<? extends Job> jobClass, Date scheduleDate, Long identify) {
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
@@ -51,5 +53,17 @@ public class JobServiceImpl implements JobService {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+    }
+
+    @SneakyThrows
+    @Override
+    public void triggerJob(Long id) {
+        SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+        JobKey jobKey = new JobKey(id + "", "auctionGroup");
+        schedulerFactory.getAllSchedulers().forEach(scheduler -> {
+            try {
+                scheduler.triggerJob(jobKey);
+            } catch (SchedulerException ignored) { }
+        });
     }
 }

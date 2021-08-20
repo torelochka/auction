@@ -25,6 +25,8 @@ public class AuctionController {
 
         model.addAttribute("bets", betService.getAuctionBets(auction));
 
+        // TODO: 18.08.2021 выводить ставки с сортировкой
+        
         return "auction";
     }
 }

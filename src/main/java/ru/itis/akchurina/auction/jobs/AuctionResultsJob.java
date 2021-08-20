@@ -11,8 +11,6 @@ import ru.itis.akchurina.auction.services.AuctionService;
 import ru.itis.akchurina.auction.services.MailService;
 
 import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ExecutorService;
 
 @Component
 public class AuctionResultsJob implements Job {

@@ -23,16 +23,22 @@ public class BetServiceImpl implements BetService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AuctionService auctionService;
+
     @Override
     public void addBet(BetDto betDto) {
         Bet bet = modelMapper.map(betDto, Bet.class);
-
         betRepository.save(bet);
+
+        AuctionDto auction = modelMapper.map(bet.getAuction(), AuctionDto.class);
+
+        auctionService.updateWinner(auction, getAuctionBets(auction));
     }
 
     @Override
     public List<BetDto> getAuctionBets(AuctionDto auctionDto) {
-        return betRepository.findAllByAuction(modelMapper.map(auctionDto, Auction.class))
+        return betRepository.findAllByAuctionOrderByPriceDesc(modelMapper.map(auctionDto, Auction.class))
                 .stream().map(bet -> modelMapper.map(bet, BetDto.class))
                 .collect(Collectors.toList());
     }
