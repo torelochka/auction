@@ -14,7 +14,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,6 +32,9 @@ public class CurrencyServiceImpl implements CurrencyService {
     private String host;
 
     Logger logger = LoggerFactory.getLogger(CurrencyServiceImpl.class);
+
+    @Autowired
+    private ConversionService conversionService;
 
     @Override
     public Double convertCurrencyToRub(Double value) {
@@ -61,19 +66,7 @@ public class CurrencyServiceImpl implements CurrencyService {
             throw new IllegalArgumentException();
         }
 
-        JsonParser parser = new JsonParser();
-        String result;
-        try {
-            result = EntityUtils.toString(response.getEntity());
-        } catch (IOException e) {
-            logger.error("Bad response parse");
-            throw new IllegalArgumentException();
-        }
-
-        JsonObject object = (JsonObject) parser.parse(result);
-        JsonObject currencyArray = object.getAsJsonObject("quotes");
-
-        return currencyArray.get("USDRUB").getAsDouble() * value;
+        return conversionService.convert(response, Double.class) * value;
 
     }
 }
