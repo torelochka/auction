@@ -13,6 +13,9 @@ import ru.itis.akchurina.auction.forms.BetForm;
 import ru.itis.akchurina.auction.security.details.UserDetailsImpl;
 import ru.itis.akchurina.auction.services.AuctionService;
 import ru.itis.akchurina.auction.services.BetService;
+import ru.itis.akchurina.auction.services.CurrencyService;
+
+import java.util.Currency;
 
 @Controller
 public class BetController {
@@ -26,6 +29,9 @@ public class BetController {
     @Autowired
     private BetService betService;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     @PostMapping("/auction/{auctionId}/bet")
     private String addAuctionBet(@PathVariable Long auctionId, BetForm betForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
@@ -36,6 +42,10 @@ public class BetController {
                 .user(modelMapper.map(userDetails.getUser(), UserDto.class))
                 .auction(auctionDto)
                 .build();
+
+        if (betForm.getCurrency().equals("USD")) {
+            betDto.setPrice(currencyService.convertCurrencyToRub(betForm.getPrice()));
+        }
 
         betService.addBet(betDto);
 

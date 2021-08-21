@@ -28,9 +28,14 @@
     <#if user??>
         <form method="post" action="/auction/${auction.id}/bet">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+            <label for="select">Валюта ставки</label>
+            <select class="form-select" id="select" aria-label="" name="currency" required>
+                <option value="RUB" selected>Рубли</option>
+                <option value="USD">Доллары</option>
+            </select>
             <div class="form-group col">
                 <label for="from">Поставить ставку</label>
-                <input id="from" type="number" step="any" class="form-control" name="price"/>
+                <input id="from" type="number" step="any" class="form-control" name="price" required/>
             </div>
             <button type="submit" class="btn btn-primary">Отправить</button>
         </form>

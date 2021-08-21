@@ -50,11 +50,13 @@ public class MailServiceImpl implements MailService {
         StringWriter writer = new StringWriter();
 
         HashMap<String, String> attributes = new HashMap<>();
-        attributes.put("winner_id", auctionDto.getWinner().getId().toString());
+        attributes.put("winner_email", auctionDto.getWinner().getEmail());
         attributes.put("auction_id", auctionDto.getId().toString());
         confirmMailTemplate.process(attributes, writer);
         MimeMessagePreparator winnerMessage = getEmail(auctionDto.getWinner().getEmail(), writer.toString(), "Результат аукциона");
+        MimeMessagePreparator ownerMessage = getEmail(auctionDto.getOwner().getEmail(), writer.toString(), "Результат аукциона");
         javaMailSender.send(winnerMessage);
+        javaMailSender.send(ownerMessage);
     }
 
     private MimeMessagePreparator getEmail(String email, String mailText, String subject) {

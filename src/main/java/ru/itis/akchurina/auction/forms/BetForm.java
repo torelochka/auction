@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class BetForm {
 
     private Double price;
+    private String currency;
 }

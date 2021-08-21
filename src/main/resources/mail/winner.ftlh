@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-<h1><a href="http://localhost/user/${winner_id}">Победитель</a></h1>
+<h1>Победитель ${winner_email}</h1>
 <h2><a href="http://localhost/auction/${auction_id}">Лот</a></h2>
 </body>
 </html>

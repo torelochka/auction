@@ -18,7 +18,6 @@ public class AuctionResultsJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         JobDataMap mergedJobDataMap = jobExecutionContext.getMergedJobDataMap();
-        // TODO: 12.08.2021 добавить юзеру типа выигранные аукционы
         Long id = (Long) mergedJobDataMap.get("auctionId");
         AuctionService auctionService = (AuctionService) mergedJobDataMap.get("auctionService");
         MailService mailService = (MailService) mergedJobDataMap.get("mailService");
