@@ -2,6 +2,7 @@ package ru.itis.akchurina.auction.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.itis.akchurina.auction.dto.AuctionDto;
 import ru.itis.akchurina.auction.dto.AuctionPhotoDto;
@@ -65,8 +66,8 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     @Override
-    public List<AuctionDto> getAllActive() {
-        return auctionRepository.findAllActive().stream()
+    public List<AuctionDto> getAllActive(Pageable pageable) {
+        return auctionRepository.findAllActive(pageable).stream()
                 .map(auction -> modelMapper.map(auction, AuctionDto.class))
                 .collect(Collectors.toList());
     }
@@ -97,6 +98,11 @@ public class AuctionServiceImpl implements AuctionService {
         }
 
         auctionRepository.save(auction);
+    }
+
+    @Override
+    public Long getAuctionsCount() {
+        return auctionRepository.auctionCount();
     }
 
 }

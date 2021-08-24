@@ -66,7 +66,7 @@ public class CurrencyServiceImpl implements CurrencyService {
             throw new IllegalArgumentException();
         }
 
-        return conversionService.convert(response, Double.class) * value;
+        return conversionService.convert(response, Double.class)  * value;
 
     }
 }

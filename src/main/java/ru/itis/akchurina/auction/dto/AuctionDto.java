@@ -23,5 +23,6 @@ public class AuctionDto {
     private String title;
     private String description;
     private Date date;
-    private Boolean active;
+    @Builder.Default
+    private Boolean active = true;
 }
