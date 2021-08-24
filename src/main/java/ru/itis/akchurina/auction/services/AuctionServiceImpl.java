@@ -18,6 +18,7 @@ import ru.itis.akchurina.auction.models.User;
 import ru.itis.akchurina.auction.repositories.AuctionPhotoRepository;
 import ru.itis.akchurina.auction.repositories.AuctionRepository;
 import ru.itis.akchurina.auction.repositories.BetRepository;
+import ru.itis.akchurina.auction.repositories.UserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,6 +37,9 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void createAuction(AuctionDto auctionDto) {
@@ -122,6 +126,33 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public void delete(Long id) {
         auctionRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AuctionDto> getUserWonAuctions(Long id) {
+        User user = userRepository.findById(id).get();
+
+        return auctionRepository.findAllByWinner(user).stream()
+                .map(auction -> modelMapper.map(auction, AuctionDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AuctionDto> getUserCurrentAuctions(Long id) {
+        User user = userRepository.findById(id).get();
+
+        return auctionRepository.findAllUserCurrentAuction(user.getId()).stream()
+                .map(auction -> modelMapper.map(auction, AuctionDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AuctionDto> getUserAuctions(Long id) {
+        User user = userRepository.findById(id).get();
+
+        return auctionRepository.findAllByOwner(user).stream()
+                .map(auction -> modelMapper.map(auction, AuctionDto.class))
+                .collect(Collectors.toList());
     }
 
 }

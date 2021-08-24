@@ -37,6 +37,10 @@ public class BetController {
 
         AuctionDto auctionDto = auctionService.findById(auctionId);
 
+        if (!auctionDto.getActive()) {
+            return "redirect:/auction/" + auctionId + "?error";
+        }
+
         BetDto betDto = BetDto.builder()
                 .price(betForm.getPrice())
                 .user(modelMapper.map(userDetails.getUser(), UserDto.class))

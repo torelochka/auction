@@ -1,6 +1,11 @@
 <#import "layouts/base.ftlh" as base>
 <@base.main title="Аукцион" css=["slider.css"] scripts=["slider.js"]>
     <div class="container">
+    <#if error??>
+        <div class="alert alert-danger" role="alert">
+            ${error}
+        </div>
+    </#if>
     <h1 class="text-center">Аукцион ${auction.title}</h1>
     <div class="slider">
         <#list auction.photosName as photo>
@@ -25,24 +30,28 @@
             </#list>
         </ul>
     </div>
-    <#if user??>
-        <#if user.id == auction.owner.id>
-            <a href="/auction/${auction.id}/change" class="btn btn-primary">Изменить</a>
-            <a href="/auction/${auction.id}/delete" class="btn btn-danger">Удалить</a>
-        <#else>
-            <form method="post" action="/auction/${auction.id}/bet">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                <label for="select">Валюта ставки</label>
-                <select class="form-select" id="select" aria-label="" name="currency" required>
-                    <option value="RUB" selected>Рубли</option>
-                    <option value="USD">Доллары</option>
-                </select>
-                <div class="form-group col">
-                    <label for="from">Поставить ставку</label>
-                    <input id="from" type="number" step="any" class="form-control" name="price" required/>
-                </div>
-                <button type="submit" class="btn btn-primary">Отправить</button>
-            </form>
+    <#if auction.active>
+        <#if user??>
+            <#if user.id == auction.owner.id>
+                <a href="/auction/${auction.id}/change" class="btn btn-primary">Изменить</a>
+                <a href="/auction/${auction.id}/delete" class="btn btn-danger">Удалить</a>
+            <#else>
+                <form method="post" action="/auction/${auction.id}/bet">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <label for="select">Валюта ставки</label>
+                    <select class="form-select" id="select" aria-label="" name="currency" required>
+                        <option value="RUB" selected>Рубли</option>
+                        <option value="USD">Доллары</option>
+                    </select>
+                    <div class="form-group col">
+                        <label for="from">Поставить ставку</label>
+                        <input id="from" type="number" step="any" class="form-control" name="price" required/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </#if>
         </#if>
+        <#else>
+        <h2 class="text-center">Аукцион окончен, победитель ${auction.winner.email}</h2>
     </#if>
 </@base.main>

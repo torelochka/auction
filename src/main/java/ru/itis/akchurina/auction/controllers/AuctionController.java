@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.itis.akchurina.auction.dto.AuctionDto;
 import ru.itis.akchurina.auction.services.AuctionService;
 import ru.itis.akchurina.auction.services.BetService;
@@ -19,14 +20,16 @@ public class AuctionController {
     private BetService betService;
 
     @GetMapping("/auction/{id}")
-    public String getAuctionPage(@PathVariable Long id, Model model) {
+    public String getAuctionPage(@PathVariable Long id, Model model, @RequestParam(required = false) String error) {
+        if (error != null) {
+            model.addAttribute("error", "Аукцион уже закончился");
+        }
+
         AuctionDto auction = auctionService.findById(id);
         model.addAttribute("auction", auction);
 
         model.addAttribute("bets", betService.getAuctionBets(auction));
 
-        // TODO: 18.08.2021 выводить ставки с сортировкой
-        
         return "auction";
     }
 }

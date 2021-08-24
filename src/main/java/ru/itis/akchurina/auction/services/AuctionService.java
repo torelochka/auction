@@ -3,6 +3,7 @@ package ru.itis.akchurina.auction.services;
 import org.springframework.data.domain.Pageable;
 import ru.itis.akchurina.auction.dto.AuctionDto;
 import ru.itis.akchurina.auction.dto.BetDto;
+import ru.itis.akchurina.auction.dto.UserDto;
 import ru.itis.akchurina.auction.forms.AuctionChangeForm;
 import ru.itis.akchurina.auction.forms.AuctionForm;
 
@@ -24,4 +25,10 @@ public interface AuctionService {
     void update(Long id, AuctionChangeForm auctionForm);
 
     void delete(Long id);
+
+    List<AuctionDto> getUserWonAuctions(Long id);
+
+    List<AuctionDto> getUserCurrentAuctions(Long id);
+
+    List<AuctionDto> getUserAuctions(Long id);
 }
