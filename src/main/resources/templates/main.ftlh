@@ -16,7 +16,7 @@
                 </#list>
             </div>
             <button id="getMoreButton" onclick="getMore(${count})" class="btn btn-primary">Показать еще</button>
-
+            <input type="text" hidden value="${count}" id="count">
         </div>
     </main>
 </@base.main>

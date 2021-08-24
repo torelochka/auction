@@ -8,6 +8,8 @@ import ru.itis.akchurina.auction.dto.AuctionDto;
 import ru.itis.akchurina.auction.dto.AuctionPhotoDto;
 import ru.itis.akchurina.auction.dto.BetDto;
 import ru.itis.akchurina.auction.dto.UserDto;
+import ru.itis.akchurina.auction.forms.AuctionChangeForm;
+import ru.itis.akchurina.auction.forms.AuctionForm;
 import ru.itis.akchurina.auction.jobs.AuctionResultsJob;
 import ru.itis.akchurina.auction.models.Auction;
 import ru.itis.akchurina.auction.models.AuctionPhoto;
@@ -103,6 +105,23 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public Long getAuctionsCount() {
         return auctionRepository.auctionCount();
+    }
+
+    @Override
+    public void update(Long id, AuctionChangeForm auctionForm) {
+        Auction auction = auctionRepository.findById(id).get();
+
+        auction.setDate(auctionForm.getDate());
+        auction.setDescription(auctionForm.getDescription());
+        auction.setPrice(auctionForm.getPrice());
+        auction.setTitle(auctionForm.getTitle());
+
+        auctionRepository.save(auction);
+    }
+
+    @Override
+    public void delete(Long id) {
+        auctionRepository.deleteById(id);
     }
 
 }

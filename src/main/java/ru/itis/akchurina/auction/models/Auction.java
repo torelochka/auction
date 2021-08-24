@@ -38,6 +38,7 @@ public class Auction {
     private Date date;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<AuctionPhoto> photosName;
 
     @Type(type = "text")

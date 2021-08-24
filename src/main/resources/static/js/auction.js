@@ -24,3 +24,7 @@ function getMore(count) {
         $("#getMoreButton").hide()
     }
 }
+
+if ($("#count").val() <= page) {
+    $("#getMoreButton").hide()
+}
