@@ -51,7 +51,9 @@ public class BetController {
             betDto.setPrice(currencyService.convertCurrencyToRub(betForm.getPrice()));
         }
 
-        betService.addBet(betDto);
+        if (!betService.addBet(betDto)) {
+            return "redirect:/auction/" + auctionId + "?errorBet";
+        }
 
         return "redirect:/auction/" + auctionId;
     }

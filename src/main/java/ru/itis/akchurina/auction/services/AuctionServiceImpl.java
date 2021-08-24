@@ -39,6 +39,9 @@ public class AuctionServiceImpl implements AuctionService {
     private ModelMapper modelMapper;
 
     @Autowired
+    private BetService betService;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -72,8 +75,8 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     @Override
-    public List<AuctionDto> getAllActive(Pageable pageable) {
-        return auctionRepository.findAllActive(pageable).stream()
+    public List<AuctionDto> getAllAuctions(Pageable pageable) {
+        return auctionRepository.findAllAuctions(pageable).stream()
                 .map(auction -> modelMapper.map(auction, AuctionDto.class))
                 .collect(Collectors.toList());
     }
@@ -83,27 +86,6 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.findById(id)
                 .map(auction -> modelMapper.map(auction, AuctionDto.class))
                 .get();
-    }
-
-    @Override
-    public void updateWinner(AuctionDto auctionDto, List<BetDto> auctionBets) {
-        Auction auction = auctionRepository.findById(auctionDto.getId()).get();
-
-        Double maxPrice = 0D;
-
-        for (BetDto betDto : auctionBets) {
-            if (betDto.getPrice() > maxPrice) {
-                auction.setWinner(modelMapper.map(betDto.getUser(), User.class));
-                maxPrice = betDto.getPrice();
-            }
-        }
-
-        if (maxPrice >= auction.getPrice()) {
-            auction.setActive(false);
-            jobService.triggerJob(auction.getId());
-        }
-
-        auctionRepository.save(auction);
     }
 
     @Override
@@ -153,6 +135,28 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.findAllByOwner(user).stream()
                 .map(auction -> modelMapper.map(auction, AuctionDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void closeAuction(AuctionDto auctionDto) {
+        Auction auction = auctionRepository.findById(auctionDto.getId()).get();
+
+        Double maxPrice = 0D;
+
+        for (BetDto betDto : betService.getAuctionBets(auctionDto)) {
+            if (betDto.getPrice() > maxPrice) {
+                auction.setWinner(modelMapper.map(betDto.getUser(), User.class));
+                maxPrice = betDto.getPrice();
+            }
+        }
+
+        if (auction.getActive()) {
+            jobService.triggerJob(auction.getId());
+        }
+
+        auction.setActive(false);
+
+        auctionRepository.save(auction);
     }
 
 }

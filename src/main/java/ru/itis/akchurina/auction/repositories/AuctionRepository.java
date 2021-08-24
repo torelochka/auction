@@ -18,10 +18,10 @@ import java.util.UUID;
 @Repository
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
-    @Query(value = "select * from auction where date >= now()", nativeQuery = true)
-    List<Auction> findAllActive(Pageable pageable);
+    @Query(value = "select * from auction", nativeQuery = true)
+    List<Auction> findAllAuctions(Pageable pageable);
 
-    @Query(value = "select count(*) from auction where date >= now()", nativeQuery = true)
+    @Query(value = "select count(*) from auction", nativeQuery = true)
     Long auctionCount();
 
     List<Auction> findAllByWinner(User user);

@@ -27,13 +27,21 @@ public class BetServiceImpl implements BetService {
     private AuctionService auctionService;
 
     @Override
-    public void addBet(BetDto betDto) {
+    public boolean addBet(BetDto betDto) {
         Bet bet = modelMapper.map(betDto, Bet.class);
-        betRepository.save(bet);
 
         AuctionDto auction = modelMapper.map(bet.getAuction(), AuctionDto.class);
+        if (getAuctionBets(auction).contains(betDto)) {
+            return false;
+        }
 
-        auctionService.updateWinner(auction, getAuctionBets(auction));
+        betRepository.save(bet);
+
+        if (bet.getPrice() >= auction.getPrice()) {
+            auctionService.closeAuction(auction);
+        }
+
+        return true;
     }
 
     @Override

@@ -2,7 +2,7 @@
 <@base.main title="Главная" scripts=["main.js", "auction.js"]>
     <main>
         <div class="container">
-            <h1 class="text-center">Действующие аукционы</h1>
+            <h1 class="text-center">Аукционы</h1>
             <div class="row" id="auction_block">
                 <#list auctions as auction>
                     <div class="col">

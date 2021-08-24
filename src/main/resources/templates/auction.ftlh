@@ -6,6 +6,11 @@
             ${error}
         </div>
     </#if>
+    <#if errorBet??>
+        <div class="alert alert-danger" role="alert">
+            ${errorBet}
+        </div>
+    </#if>
     <h1 class="text-center">Аукцион ${auction.title}</h1>
     <div class="slider">
         <#list auction.photosName as photo>
@@ -52,6 +57,10 @@
             </#if>
         </#if>
         <#else>
-        <h2 class="text-center">Аукцион окончен, победитель ${auction.winner.email}</h2>
+            <#if auction.winner??>
+                <h2 class="text-center">Аукцион окончен, победитель ${auction.winner.email}</h2>
+            <#else>
+                <h2 class="text-center">Аукцион окончен, победитель не состоялся</h2>
+            </#if>
     </#if>
 </@base.main>

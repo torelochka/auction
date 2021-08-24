@@ -20,9 +20,13 @@ public class AuctionController {
     private BetService betService;
 
     @GetMapping("/auction/{id}")
-    public String getAuctionPage(@PathVariable Long id, Model model, @RequestParam(required = false) String error) {
+    public String getAuctionPage(@PathVariable Long id, Model model, @RequestParam(required = false) String error, @RequestParam(required = false) String errorBet) {
         if (error != null) {
             model.addAttribute("error", "Аукцион уже закончился");
+        }
+
+        if (errorBet != null) {
+            model.addAttribute("errorBet", "Ставка такого номинала уже сделана");
         }
 
         AuctionDto auction = auctionService.findById(id);

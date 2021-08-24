@@ -14,11 +14,9 @@ public interface AuctionService {
     void createAuction(AuctionDto auctionDto);
     Optional<AuctionDto> getAuctionById(Long id);
 
-    List<AuctionDto> getAllActive(Pageable pageable);
+    List<AuctionDto> getAllAuctions(Pageable pageable);
 
     AuctionDto findById(Long id);
-
-    void updateWinner(AuctionDto auction, List<BetDto> auctionBets);
 
     Long getAuctionsCount();
 
@@ -31,4 +29,6 @@ public interface AuctionService {
     List<AuctionDto> getUserCurrentAuctions(Long id);
 
     List<AuctionDto> getUserAuctions(Long id);
+
+    void closeAuction(AuctionDto auctionDto);
 }

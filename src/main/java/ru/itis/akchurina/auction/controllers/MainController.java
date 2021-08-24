@@ -23,7 +23,7 @@ public class MainController {
 
     @GetMapping({"/main", "/index", "/"})
     public String getMainPage(Model model, @PageableDefault(size = pageSize)Pageable pageable) {
-        List<AuctionDto> allActive = auctionService.getAllActive(pageable);
+        List<AuctionDto> allActive = auctionService.getAllAuctions(pageable);
 
         long auctionCount = Math.round(auctionService.getAuctionsCount() / (double) pageSize);
 
@@ -39,6 +39,6 @@ public class MainController {
     @GetMapping(value = "/more/auction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<AuctionDto> getMoreAuction(Pageable pageable) {
-        return auctionService.getAllActive(pageable);
+        return auctionService.getAllAuctions(pageable);
     }
 }
