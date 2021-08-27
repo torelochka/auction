@@ -3,6 +3,7 @@ package ru.itis.akchurina.auction.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.itis.akchurina.auction.forms.RestSignUpForm;
 import ru.itis.akchurina.auction.forms.SignUpForm;
 import ru.itis.akchurina.auction.models.User;
 import ru.itis.akchurina.auction.repositories.UserRepository;
@@ -34,5 +35,15 @@ public class SignUpServiceImpl implements SignUpService {
         userRepository.save(user);
 
         return true;
+    }
+
+    @Override
+    public Boolean signUp(RestSignUpForm signUpForm) {
+        return signUp(SignUpForm.builder()
+                .email(signUpForm.getEmail())
+                .password(signUpForm.getPassword())
+                .passwordAgain(signUpForm.getPassword())
+                .build()
+        );
     }
 }

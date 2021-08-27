@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -27,6 +30,7 @@ public class User {
     @Builder.Default
     @Enumerated(value = EnumType.STRING)
     private State state = State.STATE_ACTIVE;
+
 
     public enum State {
         STATE_ACTIVE, STATE_BANNED

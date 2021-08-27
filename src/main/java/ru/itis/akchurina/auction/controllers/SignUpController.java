@@ -52,4 +52,3 @@ public class SignUpController {
         return "redirect:/signUp?error";
     }
 }
-// TODO: 07.08.2021 добавить валидацию на совпадение паролей при регистрации, добавить проверку почты
