@@ -1,6 +1,6 @@
 <header class="header-section">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/main">Spring Auction</a>
+        <a class="navbar-brand" href="/main">Spring Media</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/main">Главная</a>
@@ -9,7 +9,7 @@
                     <a class="nav-item nav-link active" href="/signUp">Регистрация</a>
                     <#else>
                         <a class="nav-item nav-link active" href="/profile">Профиль</a>
-                        <a class="nav-item nav-link active" href="/auction">Создать аукцион</a>
+                        <a class="nav-item nav-link active" href="/auction">Создать медиа</a>
                         <a class="nav-item nav-link active" href="/logout">Выйти</a>
                 </#if>
 

@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AuctionPhotoDto {
-
     private String photoName;
 }

@@ -65,6 +65,7 @@ public class AuctionServiceImpl implements AuctionService {
 
         Long auctionId = auctionRepository.save(auction).getId();
 
+        //создаем задачу
         jobService.createJob(AuctionResultsJob.class, auctionDto.getDate(), auctionId);
     }
 

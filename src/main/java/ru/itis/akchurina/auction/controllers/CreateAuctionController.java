@@ -32,25 +32,27 @@ public class CreateAuctionController {
     @Autowired
     private ModelMapper modelMapper;
 
+    @GetMapping("/auction")
+    public String getAuctionCreatePage() {
+        return "create_auction";
+    }
+
     @PostMapping("/auction")
     public String createAuction(AuctionForm auctionForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User user = userDetails.getUser();
 
         AuctionDto auctionDto = modelMapper.map(auctionForm, AuctionDto.class);
+
         auctionDto.setOwner(modelMapper.map(user, UserDto.class));
 
         List<AuctionPhotoDto> photoDtos = new ArrayList<>();
-        auctionForm.getPhotos().forEach(photoDto -> photoDtos.add(new AuctionPhotoDto(storageService.store(photoDto))));
+        auctionForm.getPhotos()
+                .forEach(photoDto -> photoDtos.add(new AuctionPhotoDto(storageService.store(photoDto))));
 
         auctionDto.setPhotosName(photoDtos);
 
         auctionService.createAuction(auctionDto);
 
         return "redirect:/profile";
-    }
-
-    @GetMapping("/auction")
-    public String getAuctionCreatePage() {
-        return "create_auction";
     }
 }

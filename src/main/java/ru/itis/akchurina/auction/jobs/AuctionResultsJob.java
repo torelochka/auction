@@ -18,10 +18,14 @@ public class AuctionResultsJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         JobDataMap mergedJobDataMap = jobExecutionContext.getMergedJobDataMap();
+
         Long id = (Long) mergedJobDataMap.get("auctionId");
+
         AuctionService auctionService = (AuctionService) mergedJobDataMap.get("auctionService");
         MailService mailService = (MailService) mergedJobDataMap.get("mailService");
+
         Optional<AuctionDto> auction = auctionService.getAuctionById(id);
+
         auctionService.closeAuction(auction.get());
         auction = auctionService.getAuctionById(id);
 
@@ -30,6 +34,5 @@ public class AuctionResultsJob implements Job {
                 mailService.sendWinnerEmail(auctionDto);
             }
         });
-
     }
 }

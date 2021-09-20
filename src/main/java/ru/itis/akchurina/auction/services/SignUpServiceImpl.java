@@ -11,15 +11,11 @@ import ru.itis.akchurina.auction.repositories.UserRepository;
 @Service
 public class SignUpServiceImpl implements SignUpService {
 
-    private final UserRepository userRepository;
-
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public SignUpServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Boolean signUp(SignUpForm signUpForm) {

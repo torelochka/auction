@@ -7,7 +7,6 @@ function getMore(count) {
         dataType: "json",
         success: function (data) {
             data.forEach(function (auction) {
-
                 let d = new Date(auction['date'])
 
                 let stringDate = ("0" + d.getDate()).slice(-2) + "." + ("0"+(d.getMonth()+1)).slice(-2) + "." +

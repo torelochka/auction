@@ -21,6 +21,11 @@ public class AuctionApplication {
     }
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public ExecutorService executorService() {
         return Executors.newCachedThreadPool();
     }
@@ -30,11 +35,6 @@ public class AuctionApplication {
         return (args) -> {
             storageService.init();
         };
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     public static void main(String[] args) {

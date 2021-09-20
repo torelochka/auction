@@ -8,18 +8,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.itis.akchurina.auction.security.filters.UserFilter;
 
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         @Autowired
         private PasswordEncoder passwordEncoder;
-
-        @Autowired
-        private UserFilter userFilter;
 
         @Autowired
         @Qualifier("UserDetailsServiceImpl")
@@ -37,7 +32,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                                 .usernameParameter("email")
                                 .defaultSuccessUrl("/profile")
                                 .failureUrl("/signIn?error").and()
-                        .addFilterAfter(userFilter, UsernamePasswordAuthenticationFilter.class)
                         .logout()
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                                 .logoutSuccessUrl("/signIn")

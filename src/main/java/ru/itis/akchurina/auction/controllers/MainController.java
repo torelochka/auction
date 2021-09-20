@@ -25,12 +25,10 @@ public class MainController {
     public String getMainPage(Model model, @PageableDefault(size = pageSize)Pageable pageable) {
         List<AuctionDto> allActive = auctionService.getAllAuctions(pageable);
 
-        long auctionCount = Math.round(auctionService.getAuctionsCount() / (double) pageSize);
+        // кол-во страниц
+        long auctionCount = (long) Math.ceil(auctionService.getAuctionsCount() / (double) pageSize);
 
         model.addAttribute("count", auctionCount);
-
-        System.out.println(auctionCount);
-
         model.addAttribute("auctions", allActive);
 
         return "main";

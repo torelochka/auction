@@ -17,17 +17,15 @@ import java.util.Objects;
 @Controller
 public class SignUpController {
 
-    private final SignUpService signUpService;
-
     @Autowired
-    public SignUpController(SignUpService signUpService) {
-        this.signUpService = signUpService;
-    }
+    private SignUpService signUpService;
 
     @GetMapping("/signUp")
     public String getSignUpPage(@RequestParam(required = false) String error, Model model) {
         model.addAttribute("signUpForm", new SignUpForm());
-        model.addAttribute("error", error);
+        if (error != null) {
+            model.addAttribute("error", "Пользователь с такой почтой уже существует");
+        }
 
         return "sign_up";
     }
@@ -48,7 +46,6 @@ public class SignUpController {
             return "redirect:/signIn";
         }
 
-        model.addAttribute("error", "Пользователь с такой почтой уже существует");
         return "redirect:/signUp?error";
     }
 }
